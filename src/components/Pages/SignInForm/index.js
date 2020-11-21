@@ -4,7 +4,7 @@ import './signinform.scss';
 
 const SignInForm = () => {
   return (
-    <div>Je suis le formulaire d'inscription</div>
+    <div>Je suis le formulaire de connexion</div>
   )
 }
 
