@@ -57,7 +57,7 @@ class UserController extends Controller {
       // now we can check if the email already exists in our database
       $existEmail = User::where('email', '=', $email)->first();  
       if ($existEmail !== NULL) {
-        return response()->json(['error' => "L'email existe déjà !"]);
+        return response()->json(['error' => "L'email existe déjà !"], 400);
       }
 
       // if all is good then we can insert the user in our database
@@ -70,7 +70,7 @@ class UserController extends Controller {
       return response()->json(['success' => 'Bravo vous faites maintenant parti de l\'équipe !'], 200);
 
     } else {
-      return response()->json($errors, 400);
+      return response()->json(['error' => $errors], 400);
     }
 
   }
