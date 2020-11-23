@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.vs/
+.vs-code/
+../Back/
+.DS_Store
+Thumbs.db
+
+yarn-error.log
