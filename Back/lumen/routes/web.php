@@ -18,3 +18,5 @@ $router->get('/', function () use ($router) {
 });
 
 $router->post('/signup', 'UserController@signup');
+
+$router->post('/signin', 'UserController@signin');

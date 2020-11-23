@@ -9,6 +9,8 @@ use Illuminate\Hashing\BcryptHasher;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\stdClass;
+use Firebase\JWT\JWT;
+use Firebase\JWT\ExpiredException;
 
 class UserController extends Controller {
 
@@ -29,6 +31,7 @@ class UserController extends Controller {
        $object->key = $key++;
        $object->content = 'Les champs ne doivent pas être vides !';
        $errors[] = $object;
+       return response()->json($errors, 400);
     }
 
     if(empty($nickname)) {
@@ -94,6 +97,80 @@ class UserController extends Controller {
 
       return response()->json(['success' => 'Bravo vous faites maintenant parti de l\'équipe !'], 200);
 
+    } else {
+      return response()->json($errors, 400);
+    }
+
+  }
+
+  public function signin (Request $request) {
+
+    $errors = [];
+    $key = 0;
+
+    $email = $request->email;
+    $password = $request->password;
+
+    if(empty($email) && empty($password)) {
+      $object = new \stdClass();
+      $object->key = $key++;
+      $object->content = "Les champs ne doivent pas être vides !";
+      $errors[] = $object;
+      return response()->json($errors, 400);
+    }
+
+    if(empty($password)) {
+      $object = new \stdClass();
+      $object->key = $key++;
+      $object->content = "Le mot de passe ne doit pas être vide !";
+      $errors[] = $object;
+    }
+
+    if (empty($email)) {
+      $object = new \stdClass();
+      $object->key = $key++;
+      $object->content = "L'email ne peut pas être vide !";
+      $errors[] = $object;
+    } elseif (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+      $object = new \stdClass();
+      $object->key = $key++;
+      $object->content = "L'email n'est pas valide !";
+      $errors[] = $object;
+    }
+
+    if (empty($errors)) {
+      $existEmail = User::where('email', '=', $email)->first();  
+      if ($existEmail === NULL) {
+        $object = new \stdClass();
+        $object->key = $key++;
+        $object->content = "L'email ou le mot de passe est inexact !";
+        $errors[] = $object;
+        return response()->json($errors, 400);
+      }
+      $user = User::all()->where('email', '=', $email)->first();
+      $userPassword = $user->password;
+  
+      $comparePassword = (new BcryptHasher)->check($password, $userPassword);
+  
+      if($comparePassword === false) {
+        $object = new \stdClass();
+        $object->key = $key++;
+        $object->content = "L'email ou le mot de passe est inexact !";
+        $errors[] = $object;
+        return response()->json($errors, 400);
+      } else {
+        // If the password is true then we can generate our token
+        $id = $user->id;
+        var_dump($id);
+        $payload = [
+          'iss' => "lumen-jwt",                     // Issuer of the token
+          'sub' => $id,                      // Subject of the token
+          'iat' => time(),                        // Time when JWT was issued. 
+          'exp' => time() +  config('jwt.app.ttl')// Expiration time
+      ];
+      $jwt = JWT::encode($payload, config('jwt.app.secret'));
+      return response()->json([ 'token' => $jwt, 'id' => $id ], 200);
+      }
     } else {
       return response()->json($errors, 400);
     }
