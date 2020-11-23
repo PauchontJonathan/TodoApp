@@ -8,6 +8,7 @@ use App\Utils\UserSession;
 use Illuminate\Hashing\BcryptHasher;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use App\Http\Controllers\stdClass;
 
 class UserController extends Controller {
 
@@ -15,6 +16,7 @@ class UserController extends Controller {
 
     // initialization of an empty array to get all errors and display it if it's not empty
     $errors = [];
+    $key = 0;
 
     // receiving requesting datas
     $nickname = $request->nickname;
@@ -23,42 +25,65 @@ class UserController extends Controller {
 
     // If the nickname is empty sending an error message to frontend
     if(empty($nickname) && empty($email) && empty($password)) {
-       array_push($errors, 'Les champs ne doivent pas être vides !');
+       $object = new \stdClass();
+       $object->key = $key++;
+       $object->content = 'Les champs ne doivent pas être vides !';
+       $errors[] = $object;
     }
 
     if(empty($nickname)) {
-        array_push($errors, 'Le pseudo ne doit pas être vide !');
+        $object = new \stdClass();
+        $object->key = $key++;
+        $object->content = 'Le pseudo ne doit pas être vide !';
+        $errors[] = $object;
     }
 
     if (strlen($nickname) < 5) {
-      array_push($errors, "Le pseudo doit contenir au minimum 5 caractères !");
-      var_dump($errors);
+      $object = new \stdClass();
+      $object->key = $key++;
+      $object->content = "Le pseudo doit contenir au minimum 5 caractères !";
+      $errors[] = $object;
    }
 
     if (empty($email)) {
-       array_push($errors, "L'email ne peut pas être vide !");
+       $object = new \stdClass();
+       $object->key = $key++;
+       $object->content = "L'email ne peut pas être vide !";
+       $errors[] = $object;
     } elseif (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
-      array_push($errors, "L'email n'est pas valide !");
+      $object = new \stdClass();
+      $object->key = $key++;
+      $object->content = "L'email n'est pas valide !";
+      $errors[] = $object;
     }
 
     if(empty($password)) {
-      array_push($errors, "Le mot-de-passe ne doit pas être vide");
+      $object = new \stdClass();
+      $object->key = $key++;
+      $object->content = "Le mot-de-passe ne doit pas être vide";
+      $errors[] = $object;
     }
 
     if (strlen($password) < 5) {
-      array_push($errors, "Le mot-de-passe doit contenir au minimum 5 caractères");
+      $object = new \stdClass();
+      $object->key = $key++;
+      $object->content = "Le mot-de-passe doit contenir au minimum 5 caractères";
+      $errors[] = $object;
+    }
+
+    // now we can check if the email already exists in our database
+    $existEmail = User::where('email', '=', $email)->first();  
+    if ($existEmail !== NULL) {
+      $object = new \stdClass();
+      $object->key = $key++;
+      $object->content = "L'email existe déjà !";
+      $errors[] = $object;
     }
 
     if (empty($errors)) {
       $hashedPassword = (new BcryptHasher)->make($password);
 
       $user = new User();
-
-      // now we can check if the email already exists in our database
-      $existEmail = User::where('email', '=', $email)->first();  
-      if ($existEmail !== NULL) {
-        return response()->json(['error' => "L'email existe déjà !"], 400);
-      }
 
       // if all is good then we can insert the user in our database
       $user->nickname = $nickname;
@@ -70,7 +95,7 @@ class UserController extends Controller {
       return response()->json(['success' => 'Bravo vous faites maintenant parti de l\'équipe !'], 200);
 
     } else {
-      return response()->json(['error' => $errors], 400);
+      return response()->json($errors, 400);
     }
 
   }
