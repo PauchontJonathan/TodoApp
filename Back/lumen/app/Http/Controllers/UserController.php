@@ -161,7 +161,6 @@ class UserController extends Controller {
       } else {
         // If the password is true then we can generate our token
         $id = $user->id;
-        var_dump($id);
         $payload = [
           'iss' => "lumen-jwt",                     // Issuer of the token
           'sub' => $id,                      // Subject of the token
@@ -169,7 +168,12 @@ class UserController extends Controller {
           'exp' => time() +  config('jwt.app.ttl')// Expiration time
       ];
       $jwt = JWT::encode($payload, config('jwt.app.secret'));
-      return response()->json([ 'token' => $jwt, 'id' => $id ], 200);
+      $success = [];
+      $object = new \stdClass();
+      $object->token = $jwt;
+      $object->id = $id;
+      $success[] = $object;
+      return response()->json($success, 200);
       }
     } else {
       return response()->json($errors, 400);
