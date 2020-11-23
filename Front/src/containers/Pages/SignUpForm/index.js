@@ -1,6 +1,12 @@
 import { connect } from 'react-redux';
 import SignUpForm from 'src/components/Pages/SignUpForm';
-import { handleNicknameInput, handleEmailInput, handlePasswordInput, handleSignUpSubmit } from 'src/store/reducers/user';
+import {
+  handleNicknameInput,
+  handleEmailInput,
+  handlePasswordInput,
+  handleSignUpSubmit,
+  clearSignupState,
+} from 'src/store/reducers/user';
 
 const mapStateToProps = (state) => ({
   signupSuccessMessage: state.user.signupSuccessMessage,
@@ -22,7 +28,10 @@ const mapDispatchToProps = (dispatch) => ({
   },
   handleSignUp: () => {
     dispatch(handleSignUpSubmit());
-  }
+  },
+  clearSignup: () => {
+    dispatch(clearSignupState());
+  },
 });
 
 

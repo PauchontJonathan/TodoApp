@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import './signupform.scss';
@@ -14,7 +14,14 @@ const SignUpForm = ({
   handleSignUp,
   signupErrors,
   signupSuccessMessage,
+  clearSignup,
 }) => {
+
+  useEffect(() => {
+    return () => {
+      clearSignup();
+    }
+  }, []);
 
   const handleNicknameValue = (e) => {
     const { value } = e.target;
@@ -75,6 +82,7 @@ SignUpForm.propTypes = {
   handleEmail: PropTypes.func.isRequired,
   handlePassword: PropTypes.func.isRequired,
   handleSignUp: PropTypes.func.isRequired,
+  clearSignup: PropTypes.func.isRequired,
   signupErrors: PropTypes.array,
   signupSuccessMessage: PropTypes.array,
 };

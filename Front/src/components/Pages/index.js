@@ -1,5 +1,5 @@
 import React from 'react';
-import SignInForm from 'src/components/Pages/SignInForm';
+import SignInForm from 'src/containers/Pages/SignInForm';
 import Main from 'src/components/Pages/Main';
 import SignUpForm from 'src/containers/Pages/SignUpForm';
 import { Route } from 'react-router-dom';
