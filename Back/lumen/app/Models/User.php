@@ -14,4 +14,9 @@ class User extends Model {
     protected $hidden = [
         'password',
     ];
+
+    public function lists()
+    {
+        return $this->hasMany('App\Models\ListModel', 'user_id');
+    }
 }

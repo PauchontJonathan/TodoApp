@@ -20,3 +20,7 @@ $router->get('/', function () use ($router) {
 $router->post('/signup', 'UserController@signup');
 
 $router->post('/signin', 'UserController@signin');
+
+$router->get('/listByUser/{id}', 'ListController@getAllLists');
+
+$router->post('/createList', 'ListController@createList');
