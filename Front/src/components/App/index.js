@@ -1,7 +1,7 @@
 // == Import : npm
 import React from 'react';
-import Header from 'src/components/Header';
-import Pages from 'src/components/Pages';
+import Header from 'src/containers/Header';
+import Pages from 'src/containers/Pages';
 
 // == Import : local
 import './app.scss';

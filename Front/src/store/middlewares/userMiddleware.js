@@ -28,6 +28,7 @@ const userMiddleware = (store) => (next) => (action) => {
         .then((res) => {
           const { token, id } = res.data[0];
           console.log(res.data);
+          localStorage.setItem('token', token);
           store.dispatch(receiveToken(token));
           store.dispatch(receiveId(id));
         })

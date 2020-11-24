@@ -24,6 +24,7 @@ const RECEIVE_SIGNUP_ERRORS = 'RECEIVE_SIGNUP_ERRORS';
 const RECEIVE_SUCCESS_MESSAGE = 'RECEIVE_SUCCESS_MESSAGE';
 const CLEAR_SIGNUP_STATE = 'CLEAR_SIGNUP_STATE';
 const CLEAR_SIGNIN_STATE = 'CLEAR_SIGNIN_STATE';
+const DISCONNECT_USER = 'DISCONNECT_USER';
 export const SEND_SIGNUP_DATAS = 'SEND_SIGNUP_DATAS';
 export const SEND_SIGNIN_DATAS = 'SEND_SIGNIN_DATAS';
 
@@ -54,6 +55,9 @@ const reducer = ( state = initialState, action = {}) => {
       return { ...state, signinErrors: action.errors };
     case CLEAR_SIGNIN_STATE:
       return { ...state, signinErrors: null, emailInputSignin: '', passwordInputSignin: '' };
+    case DISCONNECT_USER:
+      localStorage.clear();
+      return { ...state, token: '', logged: false };
     default:
       return state;
   }
@@ -125,6 +129,10 @@ export const clearSigninState = () => ({
 
 export const handleSigninSubmit = () => ({
   type: SEND_SIGNIN_DATAS,
+});
+
+export const disconnectUser = () => ({
+  type: DISCONNECT_USER,
 });
 
 export default reducer;
