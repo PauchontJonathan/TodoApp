@@ -9,11 +9,12 @@ import { Route, Redirect } from 'react-router-dom';
 
 import './pages.scss';
 
-const Pages = ({ logged, receiveToken }) => {
+const Pages = ({ logged, receiveToken, getUserDatas }) => {
   const currentToken = localStorage.getItem('token');
   useEffect(() => {
     if (currentToken) {
       receiveToken(currentToken);
+      getUserDatas();
     }
   }, [logged])
 
@@ -43,4 +44,5 @@ export default Pages;
 Pages.propTypes = {
   logged: PropTypes.bool.isRequired,
   receiveToken: PropTypes.func.isRequired,
+  getUserDatas: PropTypes.func.isRequired,
 };

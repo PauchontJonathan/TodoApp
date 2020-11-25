@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './header.scss';
 
-const Header = ({ logged, disconnectUser }) => {
+const Header = ({ logged, disconnectUser, userNickname }) => {
 
   const handleDisconnect = () => {
     disconnectUser();
@@ -27,7 +27,7 @@ const Header = ({ logged, disconnectUser }) => {
           { logged &&
           (
             <>
-              <p className="text-white welcome">Bienvenue, Lunastra</p><Nav.Link as={Link} onClick={handleDisconnect} className="text-white">Se déconnecter</Nav.Link>
+              <p className="text-white welcome">Bienvenue,{userNickname}</p><Nav.Link as={Link} onClick={handleDisconnect} className="text-white">Se déconnecter</Nav.Link>
             </>
           ) 
           }
@@ -42,4 +42,5 @@ export default Header;
 Header.propTypes = {
   disconnectUser: PropTypes.func.isRequired,
   logged: PropTypes.bool.isRequired,
+  userNickname: PropTypes.string.isRequired,
 };

@@ -2,13 +2,14 @@ const initialState = {
   signupSuccessMessage: null,
   signupErrors: null,
   signinErrors: null,
+  userNickname: '',
   nicknameInput: '',
   emailInput: '',
   passwordInput: '',
   emailInputSignin: '',
   passwordInputSignin: '',
   token: '',
-  id: null,
+  userId: null,
   logged: false,
 };
 
@@ -22,9 +23,12 @@ const RECEIVE_ID = 'RECEIVE_ID';
 const RECEIVE_SIGNIN_ERRORS = 'RECEIVE_SIGNIN_ERRORS';
 const RECEIVE_SIGNUP_ERRORS = 'RECEIVE_SIGNUP_ERRORS';
 const RECEIVE_SUCCESS_MESSAGE = 'RECEIVE_SUCCESS_MESSAGE';
+const RECEIVE_NICKNAME = 'RECEIVE_NICKNAME';
+const RECEIVE_CURRENT_ID = 'RECEIVE_CURRENT_ID';
 const CLEAR_SIGNUP_STATE = 'CLEAR_SIGNUP_STATE';
 const CLEAR_SIGNIN_STATE = 'CLEAR_SIGNIN_STATE';
 const DISCONNECT_USER = 'DISCONNECT_USER';
+export const RECEIVE_DATAS = 'RECEIVE_DATAS';
 export const SEND_SIGNUP_DATAS = 'SEND_SIGNUP_DATAS';
 export const SEND_SIGNIN_DATAS = 'SEND_SIGNIN_DATAS';
 
@@ -55,6 +59,10 @@ const reducer = ( state = initialState, action = {}) => {
       return { ...state, signinErrors: action.errors };
     case CLEAR_SIGNIN_STATE:
       return { ...state, signinErrors: null, emailInputSignin: '', passwordInputSignin: '' };
+    case RECEIVE_NICKNAME:
+      return { ...state, userNickname: action.currentNickname };
+    case RECEIVE_CURRENT_ID:
+      return { ...state, userId: action.currentId };
     case DISCONNECT_USER:
       localStorage.clear();
       return { ...state, token: '', logged: false };
@@ -131,8 +139,23 @@ export const handleSigninSubmit = () => ({
   type: SEND_SIGNIN_DATAS,
 });
 
+export const getUserDatas = () => ({
+  type: RECEIVE_DATAS,
+});
+
+export const receiveNickname = (currentNickname) => ({
+  type: RECEIVE_NICKNAME,
+  currentNickname,
+});
+
+export const receiveUserId = (currentId) => ({
+  type: RECEIVE_CURRENT_ID,
+  currentId,
+});
+
 export const disconnectUser = () => ({
   type: DISCONNECT_USER,
 });
 
 export default reducer;
+  

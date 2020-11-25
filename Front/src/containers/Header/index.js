@@ -4,6 +4,7 @@ import { disconnectUser } from 'src/store/reducers/user';
 
 const mapStateToProps = (state) => ({
   logged: state.user.logged,
+  userNickname: state.user.userNickname,
 });
 
 const mapDispatchToProps = (dispatch) => ({

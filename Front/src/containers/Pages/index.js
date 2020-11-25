@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Pages from 'src/components/Pages';
-import { receiveToken } from 'src/store/reducers/user';
+import { receiveToken, getUserDatas } from 'src/store/reducers/user';
 
 const mapStateToProps = (state) => ({
   logged: state.user.logged,
@@ -9,6 +9,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   receiveToken: (currentToken) => {
     dispatch(receiveToken(currentToken));
+  },
+  getUserDatas: () => {
+    dispatch(getUserDatas());
   }
 });
 
