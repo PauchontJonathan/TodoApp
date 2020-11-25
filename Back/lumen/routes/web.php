@@ -17,10 +17,18 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+
+// route to insert one user
 $router->post('/signup', 'UserController@signup');
 
+// route to connect one user 
 $router->post('/signin', 'UserController@signin');
 
+// route to send all lists own by one user
 $router->get('/listByUser/{id}', 'ListController@getAllLists');
 
+// route to create a list
 $router->post('/createList', 'ListController@createList');
+
+
+$router->post('/user/datas/', 'UserController@getUserDatas');

@@ -161,20 +161,60 @@ class UserController extends Controller {
       } else {
         // If the password is true then we can generate our token
         $id = $user->id;
+        $key = env('JWT_SECRET');
         $payload = [
-          'iss' => "lumen-jwt",                     // Issuer of the token
-          'sub' => $id,                      // Subject of the token
-          'iat' => time(),                        // Time when JWT was issued. 
-          'exp' => time() +  config('jwt.app.ttl')// Expiration time
-      ];
-      $jwt = JWT::encode($payload, config('jwt.app.secret'));
-      $success = [];
-      $object = new \stdClass();
-      $object->token = $jwt;
-      $object->id = $id;
-      $success[] = $object;
-      return response()->json($success, 200);
+          'iss' => "lumen-jwt", // Issuer of the token
+          'sub' => $id, // Subject of the token
+          'iat' => time(), // Time when JWT was issued. 
+          'exp' => time() + 60*60 // Expiration time
+        ];
+        $jwt = JWT::encode($payload, $key);
+        $success = [];
+        $object = new \stdClass();
+        $object->token = $jwt;
+        $object->id = $id;
+        $success[] = $object;
+        return response()->json($success, 200);
       }
+    } else {
+      return response()->json($errors, 400);
+    }
+
+  }
+
+  public function getUserDatas(Request $request) {
+
+    $errors = [];
+    $key = 0;
+
+    $userToken = $request->token;
+
+    if (empty($userToken)) {
+      $object = new \stdClass();
+      $object->error = "Le token est attendu";
+      $object->key = $key++;
+      $errors = $object;
+    }
+
+
+    if (empty($errors)) {
+      $key = env('JWT_SECRET');
+      $decodedToken = JWT::decode($userToken, $key, ['HS256']);
+      $userId = $decodedToken->sub;
+      $currentUser = User::find($userId);
+
+      $success = [];
+
+      $userNickname = $currentUser->nickname;
+      $userId = $currentUser->id;
+
+      $object = new \stdClass();
+      $object->nickname = $userNickname;
+      $object->id = $userId;
+      $success[] = $object;
+
+      return response()->json($success, 200);
+
     } else {
       return response()->json($errors, 400);
     }
