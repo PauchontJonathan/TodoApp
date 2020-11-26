@@ -51,4 +51,75 @@ class ListController extends Controller
     }
   }
 
+  public function deleteList(Request $request) {
+
+    $error = [];
+    $key = 0;
+
+    $listId = $request->listId;
+
+    if (empty($listId)) {
+      $object = new \stdClass();
+      $object->key = $key++;
+      $object->error = "L'id de la liste est attendu";
+      $error[] = $object;
+    }
+
+    if (empty($error)) {
+
+      $currentList = ListModel::find($listId);
+
+      $currentList->delete();
+
+      $success = [];
+
+      $object = new\stdClass();
+      $object->success = "Votre liste a bien été supprimé";
+      $success[] = $object;
+
+      return response()->json($success, 200);
+
+
+    } else {
+      return response()->json($error, 400);
+    }
+
+  }
+
+  public function updateList(Request $request) {
+ 
+    $error = [];
+    $key = 0;
+
+    $listId = $request->listId;
+    $newName = $request->name;
+
+    if (empty($listId)) {
+      $object = new \stdClass();
+      $object->key = $key++;
+      $object->error = "L'id de la liste est attendu";
+      $error[] = $object;
+    }
+
+    if (empty($error)) {
+      
+      $currentList = ListModel::find($listId);
+
+      $currentList->name = $newName;
+
+      $currentList->save();
+
+      $success = [];
+      $object = new \stdClass();
+      $object->success = 'Le nom de la liste a bien été mis à jour';
+      $success[] = $object;
+
+      return response()->json($success, 200);
+
+    } else {
+      return response()->json($error, 400);
+    }
+
+  }
+
 }

@@ -28,7 +28,13 @@ $router->post('/signin', 'UserController@signin');
 $router->get('/listByUser/{id}', 'ListController@getAllLists');
 
 // route to create a list
-$router->post('/createList', 'ListController@createList');
+$router->post('/list/create', 'ListController@createList');
 
+// route to delete a list
+$router->post('/list/delete', 'ListController@deleteList');
 
+// route to update a list
+$router->post('/list/update', 'ListController@updateList');
+
+//route to send datas to the user
 $router->post('/user/datas/', 'UserController@getUserDatas');
