@@ -1,11 +1,19 @@
 /* eslint-disable no-unused-expressions */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import List from 'src/components/Pages/ConnectedMain/List';
+import List from 'src/containers/Pages/ConnectedMain/List';
 
 import './connectedMain.scss';
 
-const ConnectedMain = ({ receiveList, isDatasReceived, isListCharged, list, isListCreated, createList }) => {
+const ConnectedMain = ({
+  receiveList,
+  isDatasReceived,
+  isListCharged,
+  list,
+  isListCreated,
+  createList,
+  isDeletedList,
+}) => {
 
   useEffect(() => {
     if ( isDatasReceived ) {
@@ -16,6 +24,10 @@ const ConnectedMain = ({ receiveList, isDatasReceived, isListCharged, list, isLi
   useEffect(() => {
     receiveList();
   }, [isListCreated]);
+
+  useEffect(() => {
+    receiveList();
+  }, [isDeletedList]);
 
   const handleCreateList = () => {
     createList();
@@ -30,7 +42,7 @@ const ConnectedMain = ({ receiveList, isDatasReceived, isListCharged, list, isLi
         { isListCharged && (
           <>
             {list.map((singleList) => (
-              <List key={singleList.id} name={singleList.name} />
+              <List key={singleList.id} id={singleList.id} name={singleList.name} />
             ))}
           </>
         ) }
@@ -48,6 +60,7 @@ ConnectedMain.propTypes = {
   list: PropTypes.array,
   isListCreated: PropTypes.bool.isRequired,
   createList: PropTypes.func.isRequired,
+  isDeletedList: PropTypes.bool.isRequired,
 }
 
 ConnectedMain.defaultProps = {

@@ -4,10 +4,18 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import CreateIcon from '@material-ui/icons/Create';
 import Task from 'src/components/Pages/ConnectedMain/List/Task';
 
-const List = ({ name }) => {
+const List = ({ name, id, getListId, deleteList }) => {
+
+  const getIdOnClick = (e) => {
+    const currentList = e.currentTarget;
+    const currentId = currentList.getAttribute('data-id');
+    getListId(currentId);
+    deleteList();
+  };
+
   return (
     <div className="connectedMain-lists-single">
-      <CancelIcon className="connectedMain-lists-single-delete"/>
+      <CancelIcon data-id={id} className="connectedMain-lists-single-delete" onClick={getIdOnClick} />
       <CreateIcon className="connectedMain-lists-single-modify"/>
       <p className="connectedMain-lists-single-name">{name}</p>
       <Task />
@@ -19,6 +27,9 @@ export default List;
 
 List.propTypes = {
   name: PropTypes.string,
+  id: PropTypes.number.isRequired,
+  getListId: PropTypes.func.isRequired,
+  deleteList: PropTypes.func.isRequired,
 }
 
 List.defaultProps = {

@@ -6,6 +6,7 @@ import {
 } from 'src/store/reducers/list';
 
 const mapStateToProps = (state) => ({
+  isDeletedList: state.list.isDeletedList,
   list: state.list.list,
   isListCharged: state.list.isListCharged,
   isListCreated: state.list.isListCreated,
@@ -17,7 +18,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
   createList: () => {
     dispatch(createList());
-  }
+  },
 });
 
 
