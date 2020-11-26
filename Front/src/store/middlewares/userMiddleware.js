@@ -10,6 +10,7 @@ import {
   RECEIVE_DATAS,
   receiveUserId,
   receiveNickname,
+  handleReceiveDatasBool,
 } from 'src/store/reducers/user';
 
 const userMiddleware = (store) => (next) => (action) => {
@@ -49,6 +50,9 @@ const userMiddleware = (store) => (next) => (action) => {
         })
         .catch((err) => {
           console.log(err.res);
+        })
+        .finally(() => {
+          store.dispatch(handleReceiveDatasBool());
         });
       break;
     default:

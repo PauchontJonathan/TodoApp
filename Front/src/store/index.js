@@ -2,12 +2,14 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import reducer from 'src/store/reducers';
 
 import userMiddleware from 'src/store/middlewares/userMiddleware';
+import listMiddleware from 'src/store/middlewares/listMiddleware';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const enhancers = composeEnhancers(
   applyMiddleware(
     userMiddleware,
+    listMiddleware,
   ),
 );
 

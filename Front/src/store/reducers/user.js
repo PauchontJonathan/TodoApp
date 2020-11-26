@@ -11,6 +11,7 @@ const initialState = {
   token: '',
   userId: null,
   logged: false,
+  isDatasReceived: false,
 };
 
 const HANDLE_EMAIL_INPUT_SIGNIN = 'HANDLE_EMAIL_INPUT_SIGNIN';
@@ -27,6 +28,7 @@ const RECEIVE_NICKNAME = 'RECEIVE_NICKNAME';
 const RECEIVE_CURRENT_ID = 'RECEIVE_CURRENT_ID';
 const CLEAR_SIGNUP_STATE = 'CLEAR_SIGNUP_STATE';
 const CLEAR_SIGNIN_STATE = 'CLEAR_SIGNIN_STATE';
+const HANDLE_RECEIVED_DATAS_BOOL = 'HANDLE_RECEIVED_DATAS_BOOL';
 const DISCONNECT_USER = 'DISCONNECT_USER';
 export const RECEIVE_DATAS = 'RECEIVE_DATAS';
 export const SEND_SIGNUP_DATAS = 'SEND_SIGNUP_DATAS';
@@ -63,6 +65,8 @@ const reducer = ( state = initialState, action = {}) => {
       return { ...state, userNickname: action.currentNickname };
     case RECEIVE_CURRENT_ID:
       return { ...state, userId: action.currentId };
+    case HANDLE_RECEIVED_DATAS_BOOL:
+      return { ...state, isDatasReceived: true, }
     case DISCONNECT_USER:
       localStorage.clear();
       return { ...state, token: '', logged: false };
@@ -151,6 +155,10 @@ export const receiveNickname = (currentNickname) => ({
 export const receiveUserId = (currentId) => ({
   type: RECEIVE_CURRENT_ID,
   currentId,
+});
+
+export const handleReceiveDatasBool = () => ({
+  type: HANDLE_RECEIVED_DATAS_BOOL,
 });
 
 export const disconnectUser = () => ({

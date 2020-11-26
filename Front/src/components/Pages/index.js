@@ -2,14 +2,14 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import SignInForm from 'src/containers/Pages/SignInForm';
 import Main from 'src/components/Pages/Main';
-import ConnectedMain from 'src/components/Pages/ConnectedMain';
+import ConnectedMain from 'src/containers/Pages/ConnectedMain';
 import SignUpForm from 'src/containers/Pages/SignUpForm';
 import { Route, Redirect } from 'react-router-dom';
 
 
 import './pages.scss';
 
-const Pages = ({ logged, receiveToken, getUserDatas }) => {
+const Pages = ({ logged, receiveToken, getUserDatas, isDatasReceived }) => {
   const currentToken = localStorage.getItem('token');
   useEffect(() => {
     if (currentToken) {
@@ -22,7 +22,7 @@ const Pages = ({ logged, receiveToken, getUserDatas }) => {
   return (
     <div className="pages">
       <Route exact path="/">
-        { currentToken ? <ConnectedMain /> : <Main />}
+        { currentToken ? <ConnectedMain isDatasReceived={isDatasReceived} /> : <Main />}
       </Route>
       { !currentToken && (
         <>
@@ -45,4 +45,5 @@ Pages.propTypes = {
   logged: PropTypes.bool.isRequired,
   receiveToken: PropTypes.func.isRequired,
   getUserDatas: PropTypes.func.isRequired,
+  isDatasReceived: PropTypes.bool.isRequired,
 };
