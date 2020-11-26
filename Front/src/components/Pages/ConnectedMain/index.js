@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import List from 'src/containers/Pages/ConnectedMain/List';
+import ListModal from 'src/containers/Pages/ConnectedMain/ListModal';
 
 import './connectedMain.scss';
 
@@ -13,6 +14,7 @@ const ConnectedMain = ({
   isListCreated,
   createList,
   isDeletedList,
+  openInputUpdate,
 }) => {
 
   useEffect(() => {
@@ -28,6 +30,10 @@ const ConnectedMain = ({
   useEffect(() => {
     receiveList();
   }, [isDeletedList]);
+
+  useEffect(() => {
+    receiveList();
+  }, [openInputUpdate]);
 
   const handleCreateList = () => {
     createList();
@@ -47,6 +53,7 @@ const ConnectedMain = ({
           </>
         ) }
       </div>
+      <ListModal />
     </div>
   )
 }
@@ -61,6 +68,7 @@ ConnectedMain.propTypes = {
   isListCreated: PropTypes.bool.isRequired,
   createList: PropTypes.func.isRequired,
   isDeletedList: PropTypes.bool.isRequired,
+  openInputUpdate: PropTypes.bool.isRequired,
 }
 
 ConnectedMain.defaultProps = {

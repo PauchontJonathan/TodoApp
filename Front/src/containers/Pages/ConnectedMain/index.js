@@ -10,6 +10,7 @@ const mapStateToProps = (state) => ({
   list: state.list.list,
   isListCharged: state.list.isListCharged,
   isListCreated: state.list.isListCreated,
+  openInputUpdate: state.list.openInputUpdate,
 });
 
 const mapDispatchToProps = (dispatch) => ({

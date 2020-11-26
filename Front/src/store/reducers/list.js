@@ -1,6 +1,9 @@
 const initialState = {
+  openInputUpdate: false,
+  nameInput: '',
   listId: null,
   successListCreated: '',
+  isUpdateList: false,
   isDeletedList: false,
   isListCreated: false,
   isListCharged: false,
@@ -10,12 +13,16 @@ const initialState = {
 export const RECEIVE_LIST = 'RECEIVE_LIST';
 export const CREATE_LIST = 'CREATE_LIST';
 export const DELETE_LIST = 'DELETE_LIST';
+export const UPDATE_LIST = 'UPDATE_LIST';
+const HANDLE_UPDATE_BOOL = 'HANDLE_UPDATE_BOOL';
 const GET_LIST_ID = 'GET_LIST_ID';
 const GET_LIST = 'GET_LIST';
 const IS_CHARGED_LIST = 'IS_CHARGED_LIST';
 const IS_LIST_CREATED = 'IS_LIST_CREATED';
 const GET_SUCCESS_LIST_CREATED = 'GET_SUCCESS_LIST_CREATED';
 const IS_DELETED_LIST = 'IS_DELETED_LIST';
+const HANDLE_OPEN_INPUT_UPDATE = 'HANDLE_OPEN_INPUT_UPDATE';
+const GET_NAME_INPUT = 'GET_NAME_INPUT';
 
 const reducer = ( state = initialState, action = {}) => {
   switch (action.type) {
@@ -31,6 +38,12 @@ const reducer = ( state = initialState, action = {}) => {
       return { ...state, listId: action.currentlistId }
     case IS_DELETED_LIST:
       return { ...state, isDeletedList: !state.isDeletedList };
+    case HANDLE_OPEN_INPUT_UPDATE:
+      return { ...state, openInputUpdate: !state.openInputUpdate };
+    case GET_NAME_INPUT:
+      return { ...state, nameInput: action.currentName };
+    case HANDLE_UPDATE_BOOL:
+      return { ...state, isUpdateList: !state.isUpdateList };
     default:
       return state;
   }
@@ -75,6 +88,23 @@ export const deleteList = () => ({
 
 export const handleIsDeletedList = () => ({
   type: IS_DELETED_LIST,
+});
+
+export const handleOpenInputUpdate = () => ({
+  type: HANDLE_OPEN_INPUT_UPDATE,
+});
+
+export const getNameInput = (currentName) => ({
+  type: GET_NAME_INPUT,
+  currentName,
+});
+
+export const updateList = () => ({
+  type: UPDATE_LIST,
+});
+
+export const handleUpdateListBool = () => ({
+  type: HANDLE_UPDATE_BOOL,
 });
 
 export default reducer;

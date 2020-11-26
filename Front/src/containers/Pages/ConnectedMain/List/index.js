@@ -3,9 +3,13 @@ import List from 'src/components/Pages/ConnectedMain/List';
 import {
   getListId,
   deleteList,
+  handleOpenInputUpdate,
 } from 'src/store/reducers/list';
 
-const mapStateToProps = () => ({});
+const mapStateToProps = (state) => ({
+  nameInput: state.list.nameInput,
+  openInputUpdate: state.list.openInputUpdate,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   getListId: (currentId) => {
@@ -13,6 +17,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   deleteList: () => {
     dispatch(deleteList());
+  },
+  handleOpenInputUpdate: () => {
+    dispatch(handleOpenInputUpdate());
   }
 });
 

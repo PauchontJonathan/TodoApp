@@ -8,21 +8,20 @@ import {
   handleCreatedListSuccessMessage,
   DELETE_LIST,
   handleIsDeletedList,
+  handleUpdateListBool,
+  UPDATE_LIST,
+  handleOpenInputUpdate,
 } from 'src/store/reducers/list';
 
 const listMiddleware = (store) => (next) => (action) => {
   const { userId } = store.getState().user;
-  const { listId } = store.getState().list;
+  const { listId, nameInput } = store.getState().list;
   switch (action.type) {
     case RECEIVE_LIST:
-      console.log(userId);
       axios.get(`http://localhost:8000/listByUser/${userId}`)
         .then((res) => {
           const userLists = res.data;
           store.dispatch(getList(userLists));
-        })
-        .catch((err) => {
-          console.log(err.response.data);
         })
         .finally(() => {
           store.dispatch(handleChargedListBoolean());
@@ -31,7 +30,6 @@ const listMiddleware = (store) => (next) => (action) => {
     case CREATE_LIST:
       axios.post('http://localhost:8000/list/create', {user_id: userId})
         .then((res) => {
-          console.log(res.data.success);
           const { success } = res.data.success;
           store.dispatch(handleCreatedListSuccessMessage(success));
         })
@@ -53,6 +51,19 @@ const listMiddleware = (store) => (next) => (action) => {
         .finally(() => {
           store.dispatch(handleIsDeletedList());
         })
+      break;
+    case UPDATE_LIST:
+      axios.post('http://localhost:8000/list/update', {listId, name: nameInput})
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        })
+        .finally(() => {
+          store.dispatch(handleUpdateListBool());
+          store.dispatch(handleOpenInputUpdate());
+        });
       break;
     default:
       next(action);

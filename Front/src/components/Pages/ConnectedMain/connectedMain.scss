@@ -63,9 +63,16 @@
       &-name {
         width: 100%;
         padding: 1rem 0;
-        background-color:  lighten(rgb(161, 92, 12), 30%);;
+        background-color:  lighten(rgb(161, 92, 12), 30%);
         font-weight: 777;
         height: 4rem;
+        &-empty {
+          background-color: lighten(rgb(65, 65, 65), 30%);
+          font-weight: 777;
+          height: 4rem;
+          width: 100%;
+          padding: 1rem 0;
+        }
       }
       &-tasks {
         overflow: auto;
