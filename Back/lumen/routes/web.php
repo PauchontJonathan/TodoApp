@@ -38,3 +38,6 @@ $router->post('/list/update', 'ListController@updateList');
 
 //route to send datas to the user
 $router->post('/user/datas/', 'UserController@getUserDatas');
+
+//route to get all tasks by lists
+$router->get('/task/all/{id}', 'TaskController@getAllTasks');

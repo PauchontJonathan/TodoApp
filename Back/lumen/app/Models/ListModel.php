@@ -7,5 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class ListModel extends Model {
 
     protected $table = 'list';
+
+    public function tasks() {
+        return $this->hasMany(`App\Models\Task`, 'list_id');
+    }
     
 }
