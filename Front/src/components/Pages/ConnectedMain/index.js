@@ -5,23 +5,32 @@ import List from 'src/components/Pages/ConnectedMain/List';
 
 import './connectedMain.scss';
 
-const ConnectedMain = ({ receiveList, isDatasReceived, isListCharged, list }) => {
-  console.log(isDatasReceived);
+const ConnectedMain = ({ receiveList, isDatasReceived, isListCharged, list, isListCreated, createList }) => {
+
   useEffect(() => {
     if ( isDatasReceived ) {
       receiveList();
-      console.log('coucou');
     }
   }, [isDatasReceived]);
+
+  useEffect(() => {
+    receiveList();
+  }, [isListCreated]);
+
+  const handleCreateList = () => {
+    createList();
+  };
+
+
   return (
     <div className="connectedMain">
       <h1 className="connectedMain-title">Mes listes</h1>
-      <button type="button" className="connectedMain-create">Créer une liste</button>
+      <button type="button" className="connectedMain-create" onClick={handleCreateList}>Créer une liste</button>
       <div className="connectedMain-lists">
         { isListCharged && (
           <>
             {list.map((singleList) => (
-              <List key={singleList.id} name={singleList.name}/>
+              <List key={singleList.id} name={singleList.name} />
             ))}
           </>
         ) }
@@ -37,6 +46,8 @@ ConnectedMain.propTypes = {
   isDatasReceived: PropTypes.bool.isRequired,
   isListCharged: PropTypes.bool.isRequired,
   list: PropTypes.array,
+  isListCreated: PropTypes.bool.isRequired,
+  createList: PropTypes.func.isRequired,
 }
 
 ConnectedMain.defaultProps = {

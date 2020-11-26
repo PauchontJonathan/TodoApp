@@ -3,6 +3,9 @@ import {
   RECEIVE_LIST,
   getList,
   handleChargedListBoolean,
+  CREATE_LIST,
+  handleCreatedListBoolean,
+  handleCreatedListSuccessMessage,
 } from 'src/store/reducers/list';
 
 const listMiddleware = (store) => (next) => (action) => {
@@ -23,6 +26,18 @@ const listMiddleware = (store) => (next) => (action) => {
         .finally(() => {
           store.dispatch(handleChargedListBoolean());
         })
+      break;
+    case CREATE_LIST:
+      axios.post('http://localhost:8000/list/create', {user_id: userId})
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          store.dispatch(handleCreatedListBoolean());
+        });
       break;
     default:
       next(action);
