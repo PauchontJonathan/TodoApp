@@ -11,6 +11,8 @@ const mapStateToProps = (state) => ({
   isListCharged: state.list.isListCharged,
   isListCreated: state.list.isListCreated,
   openInputUpdate: state.list.openInputUpdate,
+  isTaskCreated: state.task.isTaskCreated,
+  isDeletedTask: state.task.isDeletedTask,
 });
 
 const mapDispatchToProps = (dispatch) => ({

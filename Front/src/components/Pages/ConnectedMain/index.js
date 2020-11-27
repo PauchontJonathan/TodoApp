@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import List from 'src/containers/Pages/ConnectedMain/List';
 import ListModal from 'src/containers/Pages/ConnectedMain/ListModal';
+import TaskModal from 'src/containers/Pages/ConnectedMain/TaskModal';
 
 import './connectedMain.scss';
 
@@ -15,6 +16,8 @@ const ConnectedMain = ({
   createList,
   isDeletedList,
   openInputUpdate,
+  isTaskCreated,
+  isDeletedTask,
 }) => {
 
   useEffect(() => {
@@ -35,6 +38,15 @@ const ConnectedMain = ({
     receiveList();
   }, [openInputUpdate]);
 
+  useEffect(() => {
+    receiveList();
+  }, [isTaskCreated]);
+
+  
+  useEffect(() => {
+    receiveList();
+  }, [isDeletedTask]);
+
   const handleCreateList = () => {
     createList();
   };
@@ -48,12 +60,13 @@ const ConnectedMain = ({
         { isListCharged && (
           <>
             {list.map((singleList) => (
-              <List key={singleList.id} id={singleList.id} name={singleList.name} />
+              <List key={singleList.id} id={singleList.id} name={singleList.name} tasks={singleList.tasks}/>
             ))}
           </>
         ) }
       </div>
       <ListModal />
+      <TaskModal />
     </div>
   )
 }
@@ -69,6 +82,8 @@ ConnectedMain.propTypes = {
   createList: PropTypes.func.isRequired,
   isDeletedList: PropTypes.bool.isRequired,
   openInputUpdate: PropTypes.bool.isRequired,
+  isTaskCreated: PropTypes.bool.isRequired,
+  isDeletedTask: PropTypes.bool.isRequired,
 }
 
 ConnectedMain.defaultProps = {

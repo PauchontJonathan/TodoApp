@@ -20,7 +20,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
   handleOpenInputUpdate: () => {
     dispatch(handleOpenInputUpdate());
-  }
+  },
 });
 
 

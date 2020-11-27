@@ -76,12 +76,53 @@
       }
       &-tasks {
         overflow: auto;
+        position: relative;
         font-family: 'Roboto', sans-serif !important;
         height: 25rem;
+        &-add {
+          position: absolute;
+          bottom: 11px;
+          font-size: 2rem !important;
+          right: 6px;
+          cursor: pointer;
+        }
       }
       &-task {
+        position: relative;
         text-align: left;
         margin-left: 1rem;
+        &-single {
+          border-radius: 10px;
+          background-color: lighten(rgb(161, 92, 12), 30%);
+          margin-right: 1rem;
+          padding-left: 1rem;
+          width: 15rem;
+          &-checked {
+            border-radius: 10px;
+            background-color: darken(rgb(161, 92, 12), 5%);
+            margin-right: 1rem;
+            padding-left: 1rem;
+            width: 15rem;
+            text-decoration: line-through;
+          }
+          &-empty {
+            border-radius: 10px;
+            background-color: lighten(rgb(65, 65, 65), 30%);
+            margin-right: 1rem;
+            padding-left: 1rem;
+            width: 15rem;
+          }
+        }
+        &-delete {
+          position: absolute;
+          right: 6px;
+          cursor: pointer;
+        }
+        &-modify {
+          position: absolute;
+          right: 34px;
+          cursor: pointer;
+        }
       }
     }
   }

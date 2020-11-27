@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CancelIcon from '@material-ui/icons/Cancel';
 import CreateIcon from '@material-ui/icons/Create';
-import Task from 'src/components/Pages/ConnectedMain/List/Task';
+import Task from 'src/containers/Pages/ConnectedMain/List/Task';
 
-const List = ({ name, id, getListId, deleteList, handleOpenInputUpdate }) => {
+const List = ({ name, id, getListId, deleteList, handleOpenInputUpdate, tasks }) => {
 
   const getIdOnClick = (e) => {
     const currentList = e.currentTarget;
@@ -26,7 +26,7 @@ const List = ({ name, id, getListId, deleteList, handleOpenInputUpdate }) => {
       <CreateIcon data-id={id} className="connectedMain-lists-single-modify" onClick={handleModalInput} />
       { name && <p className="connectedMain-lists-single-name">{name}</p>}
       { !name && <p className="connectedMain-lists-single-name-empty">Aucun nom</p>}
-      <Task />
+      <Task id={id} tasks={tasks}/>
     </div>
   )
 }
@@ -39,6 +39,7 @@ List.propTypes = {
   getListId: PropTypes.func.isRequired,
   deleteList: PropTypes.func.isRequired,
   handleOpenInputUpdate: PropTypes.func.isRequired,
+  tasks: PropTypes.array.isRequired,
 }
 
 List.defaultProps = {

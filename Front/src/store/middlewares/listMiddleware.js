@@ -41,7 +41,7 @@ const listMiddleware = (store) => (next) => (action) => {
         });
       break;
     case DELETE_LIST:
-      axios.post('http://localhost:8000/list/delete', {listId})
+      axios.delete(`http://localhost:8000/list/delete/${listId}`)
         .then((res) => {
           console.log(res.data);
         })
