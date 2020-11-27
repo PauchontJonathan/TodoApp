@@ -51,14 +51,13 @@ class ListController extends Controller
     }
   }
 
-  public function deleteList(Request $request) {
+  public function deleteList($id) {
 
     $error = [];
     $key = 0;
 
-    $listId = $request->listId;
 
-    if (empty($listId)) {
+    if (empty($id)) {
       $object = new \stdClass();
       $object->key = $key++;
       $object->error = "L'id de la liste est attendu";
@@ -67,7 +66,7 @@ class ListController extends Controller
 
     if (empty($error)) {
 
-      $currentList = ListModel::find($listId);
+      $currentList = ListModel::find($id);
 
       $currentList->delete();
 

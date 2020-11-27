@@ -31,7 +31,7 @@ $router->get('/listByUser/{id}', 'ListController@getAllLists');
 $router->post('/list/create', 'ListController@createList');
 
 // route to delete a list
-$router->post('/list/delete', 'ListController@deleteList');
+$router->delete('/list/delete/{id}', 'ListController@deleteList');
 
 // route to update a list
 $router->post('/list/update', 'ListController@updateList');
@@ -41,3 +41,15 @@ $router->post('/user/datas/', 'UserController@getUserDatas');
 
 //route to get all tasks by lists
 $router->get('/task/all/{id}', 'TaskController@getAllTasks');
+
+//route to delete one task 
+$router->delete('/task/delete/{id}', 'TaskController@deleteTask');
+
+//route to create a task
+$router->post('/task/create', 'TaskController@createTask');
+
+//route to update a task
+$router->post('/task/update', 'TaskController@updateTask');
+
+//route to validate a task
+$router->post('/task/validate', 'TaskController@validateTask');

@@ -9,7 +9,7 @@ class ListModel extends Model {
     protected $table = 'list';
 
     public function tasks() {
-        return $this->hasMany(`App\Models\Task`, 'list_id');
+        return $this->hasMany('App\Models\TaskModel', 'list_id');
     }
     
 }
