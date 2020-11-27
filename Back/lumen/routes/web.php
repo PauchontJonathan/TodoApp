@@ -25,7 +25,7 @@ $router->post('/signup', 'UserController@signup');
 $router->post('/signin', 'UserController@signin');
 
 // route to send all lists own by one user
-$router->get('/listByUser/{id}', 'ListController@getAllLists');
+$router->get('/listByUser/{id}', 'ListController@getAllListsWithTasks');
 
 // route to create a list
 $router->post('/list/create', 'ListController@createList');
@@ -38,9 +38,6 @@ $router->post('/list/update', 'ListController@updateList');
 
 //route to send datas to the user
 $router->post('/user/datas/', 'UserController@getUserDatas');
-
-//route to get all tasks by lists
-$router->get('/task/all/{id}', 'TaskController@getAllTasks');
 
 //route to delete one task 
 $router->delete('/task/delete/{id}', 'TaskController@deleteTask');

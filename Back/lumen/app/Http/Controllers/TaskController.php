@@ -10,40 +10,6 @@ use Illuminate\Http\Request;
 class TaskController extends Controller
 {
 
-  public function getAllTasks($id) {
-
-    $error = [];
-    $key = 0;
-
-    if (empty($id)) {
-      $object = new \stdClass();
-      $object->error = "L'id de la liste est attendu";
-      $object->key = $key++;
-      $error[] = $object;
-    }
-
-    if (empty($error)) {
-
-      $tasks = [];
-
-      $tasksByList = ListModel::find($id)->tasks()->get();
-
-      foreach ($tasksByList as $key => $oneTask) {
-        $object = new \stdClass();
-        $object->id = $oneTask->id;
-        $object->checked = $oneTask->checked;
-        $object->content = $oneTask->content;
-        $tasks[] = $object;
-      }
-      return response()->json($tasks, 200); 
-
-
-    } else {
-      return response()->json($error, 400);
-    }
-
-  }
-
   public function deleteTask($id) {
 
     $error = [];

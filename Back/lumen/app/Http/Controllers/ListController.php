@@ -4,18 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\ListModel;
+use App\Models\TaskModel;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
 class ListController extends Controller
 {
-  public function getAllLists($id) {
+  public function getAllListsWithTasks($id) {
     $lists = User::find($id)->lists()->get();
     $list = [];
     foreach ($lists as $key => $singleList) {
       $object = new \stdClass();
       $object->id = $singleList->id;
       $object->name = $singleList->name;
+      $item = [];
+      $listWithTasks = $singleList->tasks()->get();
+
+      foreach ($listWithTasks as $key => $task) {
+        $taskObject = new \stdClass();
+        $taskObject->id = $task->id;
+        $taskObject->content = $task->content;
+        $taskObject->checked = $task->checked;
+        $item[] = $taskObject;
+      }
+      $object->tasks = $item;
       $list[] = $object;
     }
     return response()->json($list, 200); 
