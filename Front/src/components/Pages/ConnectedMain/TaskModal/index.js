@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TaskModal = ({ isOpenTaskModal, handleTaskModal, contentTaskInput, getCurrentTaskValue }) => {
+const TaskModal = ({ isOpenTaskModal, handleTaskModal, contentTaskInput, getCurrentTaskValue, updateTask }) => {
 
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
@@ -42,11 +42,14 @@ const TaskModal = ({ isOpenTaskModal, handleTaskModal, contentTaskInput, getCurr
     getCurrentTaskValue(value);
   }
 
-
+const handleUpdateTaskOnSubmit = (e) => {
+    e.preventDefault();
+    updateTask();
+}
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      <form method="post" className="listModal">
+      <form method="post" className="listModal" onSubmit={handleUpdateTaskOnSubmit}>
         <label htmlFor="name" className="listModal-label">Nom de la tâche</label>
         <input className="listModal-name" value={contentTaskInput} onChange={handleTaskInput} />
         <button type="submit" className="listModal-button" >Modifier</button>
@@ -75,5 +78,6 @@ TaskModal.propTypes = {
   handleTaskModal: PropTypes.func.isRequired,
   contentTaskInput: PropTypes.string.isRequired,
   getCurrentTaskValue: PropTypes.func.isRequired,
+  updateTask: PropTypes.func.isRequired,
 }
 

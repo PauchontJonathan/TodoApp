@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import SingleTask from 'src/components/Pages/ConnectedMain/List/Task/SingleTask';
-import { getTaskId, deleteTask } from 'src/store/reducers/task';
+import { getTaskId, deleteTask, handleTaskModal } from 'src/store/reducers/task';
 
 const mapStateToProps = () => ({});
 const mapDispatchToProps = (dispatch) => ({
@@ -9,6 +9,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   deleteTask: () => {
     dispatch(deleteTask());
+  },
+  handleTaskModal: () => {
+    dispatch(handleTaskModal());
   },
 });
 

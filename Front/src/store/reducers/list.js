@@ -23,6 +23,7 @@ const GET_SUCCESS_LIST_CREATED = 'GET_SUCCESS_LIST_CREATED';
 const IS_DELETED_LIST = 'IS_DELETED_LIST';
 const HANDLE_OPEN_INPUT_UPDATE = 'HANDLE_OPEN_INPUT_UPDATE';
 const GET_NAME_INPUT = 'GET_NAME_INPUT';
+const CLEAR_NAME_INPUT = 'CLEAR_NAME_INPUT';
 
 const reducer = ( state = initialState, action = {}) => {
   switch (action.type) {
@@ -44,6 +45,8 @@ const reducer = ( state = initialState, action = {}) => {
       return { ...state, nameInput: action.currentName };
     case HANDLE_UPDATE_BOOL:
       return { ...state, isUpdateList: !state.isUpdateList };
+    case CLEAR_NAME_INPUT:
+      return { ...state, nameInput: '' };
     default:
       return state;
   }
@@ -99,6 +102,10 @@ export const getNameInput = (currentName) => ({
   currentName,
 });
 
+export const clearNameInput = () => ({
+  type: CLEAR_NAME_INPUT,
+});
+
 export const updateList = () => ({
   type: UPDATE_LIST,
 });
@@ -106,5 +113,6 @@ export const updateList = () => ({
 export const handleUpdateListBool = () => ({
   type: HANDLE_UPDATE_BOOL,
 });
+
 
 export default reducer;

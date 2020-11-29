@@ -18,34 +18,45 @@ const ConnectedMain = ({
   openInputUpdate,
   isTaskCreated,
   isDeletedTask,
+  isTaskUpdated,
 }) => {
 
+  // update the component if the main datas are loaded
   useEffect(() => {
     if ( isDatasReceived ) {
       receiveList();
     }
   }, [isDatasReceived]);
 
+  // update the component if a list is created
   useEffect(() => {
     receiveList();
   }, [isListCreated]);
 
+  // update the component if a list is deleted
   useEffect(() => {
     receiveList();
   }, [isDeletedList]);
 
+  // update the component if a list name is updated
   useEffect(() => {
     receiveList();
   }, [openInputUpdate]);
 
+  // update the component if a task is created
   useEffect(() => {
     receiveList();
   }, [isTaskCreated]);
 
-  
+  // update the component if a task is deleted
   useEffect(() => {
     receiveList();
   }, [isDeletedTask]);
+
+  // update the component if a task is updated
+  useEffect(() => {
+    receiveList();
+  }, [isTaskUpdated]);
 
   const handleCreateList = () => {
     createList();
@@ -84,6 +95,7 @@ ConnectedMain.propTypes = {
   openInputUpdate: PropTypes.bool.isRequired,
   isTaskCreated: PropTypes.bool.isRequired,
   isDeletedTask: PropTypes.bool.isRequired,
+  isTaskUpdated: PropTypes.bool.isRequired,
 }
 
 ConnectedMain.defaultProps = {

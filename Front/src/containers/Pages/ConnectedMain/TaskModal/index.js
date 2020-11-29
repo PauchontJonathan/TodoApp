@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import TaskModal from 'src/components/Pages/ConnectedMain/TaskModal';
-import { handleTaskModal, getCurrentTaskValue } from 'src/store/reducers/task';
+import { handleTaskModal, getCurrentTaskValue, updateTask } from 'src/store/reducers/task';
 
 const mapStateToProps = (state) => ({
   isOpenTaskModal: state.task.isOpenTaskModal,
@@ -11,9 +11,12 @@ const mapDispatchToProps = (dispatch) => ({
   handleTaskModal: () => {
     dispatch(handleTaskModal());
   },
-  getCurrentTaskValue: () => {
-    dispatch(getCurrentTaskValue());
+  getCurrentTaskValue: (currentTaskValue) => {
+    dispatch(getCurrentTaskValue(currentTaskValue));
   },
+  updateTask: () => {
+    dispatch(updateTask());
+  }
 });
 
 

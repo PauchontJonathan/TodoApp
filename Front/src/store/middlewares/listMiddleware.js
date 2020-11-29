@@ -11,6 +11,7 @@ import {
   handleUpdateListBool,
   UPDATE_LIST,
   handleOpenInputUpdate,
+  clearNameInput,
 } from 'src/store/reducers/list';
 
 const listMiddleware = (store) => (next) => (action) => {
@@ -55,7 +56,7 @@ const listMiddleware = (store) => (next) => (action) => {
     case UPDATE_LIST:
       axios.post('http://localhost:8000/list/update', {listId, name: nameInput})
         .then((res) => {
-          console.log(res.data);
+          console.log(res);
         })
         .catch((err) => {
           console.log(err.response);
@@ -63,6 +64,7 @@ const listMiddleware = (store) => (next) => (action) => {
         .finally(() => {
           store.dispatch(handleUpdateListBool());
           store.dispatch(handleOpenInputUpdate());
+          store.dispatch(clearNameInput());
         });
       break;
     default:
