@@ -23,8 +23,6 @@ const listMiddleware = (store) => (next) => (action) => {
         .then((res) => {
           const userLists = res.data;
           store.dispatch(getList(userLists));
-        })
-        .finally(() => {
           store.dispatch(handleChargedListBoolean());
         })
       break;

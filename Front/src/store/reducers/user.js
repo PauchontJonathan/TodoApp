@@ -69,7 +69,7 @@ const reducer = ( state = initialState, action = {}) => {
       return { ...state, isDatasReceived: !state.isDatasReceived, }
     case DISCONNECT_USER:
       localStorage.clear();
-      return { ...state, token: '', logged: false, userNickname: '', id: '', userId: '' };
+      return { ...state, token: '', logged: false, userNickname: '', id: '', userId: '', isDatasReceived: false };
     default:
       return state;
   }

@@ -25,42 +25,58 @@ const ConnectedMain = ({
 
   // update the component if the main datas are loaded
   useEffect(() => {
-    receiveList();
+    if (isDatasReceived) {
+      receiveList();
+    }
   }, [isDatasReceived]);
 
   // update the component if a list is created
   useEffect(() => {
-    receiveList();
+    if (isDatasReceived) {
+      receiveList();
+    }
   }, [isListCreated]);
 
   // update the component if a list is deleted
   useEffect(() => {
-    receiveList();
+    if (isDatasReceived) {
+      receiveList();
+    }
   }, [isDeletedList]);
 
   // update the component if a list name is updated
   useEffect(() => {
-    receiveList();
+    if (isDatasReceived) {
+      receiveList();
+    }
   }, [openInputUpdate]);
 
   // update the component if a task is created
   useEffect(() => {
-    receiveList();
+    if (isDatasReceived) {
+      receiveList();
+    }
   }, [isTaskCreated]);
 
   // update the component if a task is deleted
   useEffect(() => {
-    receiveList();
+    if (isDatasReceived) {
+      receiveList();
+    }
   }, [isDeletedTask]);
 
   // update the component if a task is updated
   useEffect(() => {
-    receiveList();
+    if (isDatasReceived) {
+      receiveList();
+    }
   }, [isTaskUpdated]);
 
   // update the component if a task is validate or not
   useEffect(() => {
-    receiveList();
+    if (isDatasReceived) {
+      receiveList();
+    }
   }, [isCheckedTaskCallLoaded]);
 
   useEffect(() => {
