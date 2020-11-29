@@ -25,7 +25,6 @@ class TaskController extends Controller
     if (empty($error)) {
 
       $currentTask = TaskModel::find($id);
-      dump($currentTask);
 
       $currentTask->delete();
 
@@ -127,7 +126,6 @@ class TaskController extends Controller
 
     $newChecked = $request->isChecked;
     $taskId = $request->taskId;
-    
 
     if (empty($taskId)) {
       $object = new \stdClass();
@@ -143,13 +141,19 @@ class TaskController extends Controller
       $error[] = $object;
     }
 
+    if ($newChecked === 'false') {
+      $newChecked = false;
+    } elseif ($newChecked === 'true') {
+      $newChecked = true;
+    }
+
     if (empty($error)) {
 
       $currentTask = TaskModel::find($taskId);
 
-      if ($newChecked === 'false') {
-        $currentTask->checked = 0;
-      } elseif ($newChecked === 'true') {
+      if ($newChecked === false) {
+        $currentTask->checked = false;
+      } else if ($newChecked === true) {
         $currentTask->checked = 1;
       }
       
