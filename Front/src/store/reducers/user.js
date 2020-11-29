@@ -66,10 +66,10 @@ const reducer = ( state = initialState, action = {}) => {
     case RECEIVE_CURRENT_ID:
       return { ...state, userId: action.currentId };
     case HANDLE_RECEIVED_DATAS_BOOL:
-      return { ...state, isDatasReceived: true, }
+      return { ...state, isDatasReceived: !state.isDatasReceived, }
     case DISCONNECT_USER:
       localStorage.clear();
-      return { ...state, token: '', logged: false };
+      return { ...state, token: '', logged: false, userNickname: '', id: '', userId: '' };
     default:
       return state;
   }
@@ -166,4 +166,3 @@ export const disconnectUser = () => ({
 });
 
 export default reducer;
-  

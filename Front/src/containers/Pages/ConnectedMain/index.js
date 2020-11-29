@@ -3,6 +3,7 @@ import ConnectedMain from 'src/components/Pages/ConnectedMain';
 import {
   receiveList,
   createList,
+  clearList,
 } from 'src/store/reducers/list';
 
 const mapStateToProps = (state) => ({
@@ -23,6 +24,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   createList: () => {
     dispatch(createList());
+  },
+  clearList: () => {
+    dispatch(clearList());
   },
 });
 

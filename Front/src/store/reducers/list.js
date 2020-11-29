@@ -24,6 +24,7 @@ const IS_DELETED_LIST = 'IS_DELETED_LIST';
 const HANDLE_OPEN_INPUT_UPDATE = 'HANDLE_OPEN_INPUT_UPDATE';
 const GET_NAME_INPUT = 'GET_NAME_INPUT';
 const CLEAR_NAME_INPUT = 'CLEAR_NAME_INPUT';
+const CLEAR_LIST = 'CLEAR_LIST';
 
 const reducer = ( state = initialState, action = {}) => {
   switch (action.type) {
@@ -47,6 +48,8 @@ const reducer = ( state = initialState, action = {}) => {
       return { ...state, isUpdateList: !state.isUpdateList };
     case CLEAR_NAME_INPUT:
       return { ...state, nameInput: '' };
+    case CLEAR_LIST:
+      return { ...state, list: [], isListCharged: false };
     default:
       return state;
   }
@@ -112,6 +115,10 @@ export const updateList = () => ({
 
 export const handleUpdateListBool = () => ({
   type: HANDLE_UPDATE_BOOL,
+});
+
+export const clearList = () => ({
+  type: CLEAR_LIST,
 });
 
 

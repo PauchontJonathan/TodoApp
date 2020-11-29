@@ -20,13 +20,12 @@ const ConnectedMain = ({
   isDeletedTask,
   isTaskUpdated,
   isCheckedTaskCallLoaded,
+  clearList,
 }) => {
 
   // update the component if the main datas are loaded
   useEffect(() => {
-    if ( isDatasReceived ) {
-      receiveList();
-    }
+    receiveList();
   }, [isDatasReceived]);
 
   // update the component if a list is created
@@ -63,6 +62,12 @@ const ConnectedMain = ({
   useEffect(() => {
     receiveList();
   }, [isCheckedTaskCallLoaded]);
+
+  useEffect(() => {
+    return () => {
+      clearList();
+    }
+  }, []);
 
   const handleCreateList = () => {
     createList();
@@ -103,6 +108,7 @@ ConnectedMain.propTypes = {
   isDeletedTask: PropTypes.bool.isRequired,
   isTaskUpdated: PropTypes.bool.isRequired,
   isCheckedTaskCallLoaded: PropTypes.bool.isRequired,
+  clearList: PropTypes.func.isRequired,
 }
 
 ConnectedMain.defaultProps = {
