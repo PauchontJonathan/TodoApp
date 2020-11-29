@@ -15,9 +15,11 @@ import {
 
 const userMiddleware = (store) => (next) => (action) => {
   const { nicknameInput, emailInput, passwordInput, emailInputSignin, passwordInputSignin, token } = store.getState().user;
+  const convertedToLowerCaseEmail = emailInput.toLowerCase();
+  const convertedToLowerCaseEmainSignin = emailInputSignin.toLowerCase();
   switch (action.type) {
     case SEND_SIGNUP_DATAS:
-      axios.post('http://localhost:8000/signup',{nickname: nicknameInput, email: emailInput, password: passwordInput})
+      axios.post('http://localhost:8000/signup',{nickname: nicknameInput, email: convertedToLowerCaseEmail, password: passwordInput})
         .then((res) => {
           const { success } = res.data;
           store.dispatch(receiveSuccessMessage(success));
@@ -28,7 +30,7 @@ const userMiddleware = (store) => (next) => (action) => {
         });
       break;
     case SEND_SIGNIN_DATAS:
-      axios.post('http://localhost:8000/signin', {email: emailInputSignin, password: passwordInputSignin})
+      axios.post('http://localhost:8000/signin', {email: convertedToLowerCaseEmainSignin, password: passwordInputSignin})
         .then((res) => {
           const { id } = res.data[0];
           const userToken = res.data[0].token;
