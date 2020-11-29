@@ -97,6 +97,7 @@
           margin-right: 1rem;
           padding-left: 1rem;
           width: 15rem;
+          cursor: pointer;
           &-checked {
             border-radius: 10px;
             background-color: darken(rgb(161, 92, 12), 5%);
@@ -104,6 +105,7 @@
             padding-left: 1rem;
             width: 15rem;
             text-decoration: line-through;
+            cursor: pointer;
           }
           &-empty {
             border-radius: 10px;

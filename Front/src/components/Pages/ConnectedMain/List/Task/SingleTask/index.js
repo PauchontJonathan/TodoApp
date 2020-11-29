@@ -4,7 +4,16 @@ import className from 'classnames';
 import CancelIcon from '@material-ui/icons/Cancel';
 import CreateIcon from '@material-ui/icons/Create';
 
-const SingleTask = ({ content, id, checked, getTaskId, deleteTask, handleTaskModal }) => {
+const SingleTask = ({
+  content,
+  id,
+  checked,
+  getTaskId,
+  deleteTask,
+  handleTaskModal,
+  handleIsCkeckedTask,
+  setCheckStateTask,
+}) => {
 
   const isChecked = className('connectedMain-lists-single-task-single', { 'connectedMain-lists-single-task-single-checked': checked === 1 });
 
@@ -22,11 +31,24 @@ const SingleTask = ({ content, id, checked, getTaskId, deleteTask, handleTaskMod
     handleTaskModal();
   }
 
+  const handleCheckedTaskOnClick = (e) => {
+    const currentTask = e.currentTarget;
+    const currentTaskId = currentTask.getAttribute('data-id');
+    getTaskId(currentTaskId);
+    if (checked === 0) {
+      handleIsCkeckedTask('true');
+      setCheckStateTask();
+    } else if (checked === 1) {
+      handleIsCkeckedTask('false');
+      setCheckStateTask();
+    }
+  };
+
   return (
     <div className="connectedMain-lists-single-task">
       <CancelIcon data-id={id} className="connectedMain-lists-single-task-delete" onClick={handleDeleteTask}/>
       <CreateIcon data-id={id} className="connectedMain-lists-single-task-modify" onClick={openTaskModalOnClick}/>
-      { content && <p className={isChecked}>{content}</p>}
+      { content && <p data-id={id} onClick={handleCheckedTaskOnClick} className={isChecked}>{content}</p>}
       { content == null && <p className="connectedMain-lists-single-task-single-empty">Tâche à remplir</p>}
     </div>
   )
@@ -41,6 +63,8 @@ SingleTask.propTypes = {
   getTaskId: PropTypes.func.isRequired,
   deleteTask: PropTypes.func.isRequired,
   handleTaskModal: PropTypes.func.isRequired,
+  handleIsCkeckedTask: PropTypes.func.isRequired,
+  setCheckStateTask: PropTypes.func.isRequired,
 }
 
 SingleTask.defaultProps = {

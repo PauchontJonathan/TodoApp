@@ -8,10 +8,12 @@ import {
   handleUpdatedTaskBoolean,
   handleTaskModal,
   clearTaskInput,
+  SET_CHECK_STATE_TASK,
+  handleCheckedCallLoaded,
 } from 'src/store/reducers/task';
 
 const taskMiddleware = (store) => (next) => (action) => {
-  const { createlistId, taskId, contentTaskInput, } = store.getState().task;
+  const { createlistId, taskId, contentTaskInput, isCheckedTask } = store.getState().task;
   switch (action.type) {
     case CREATE_TASK:
       axios.post('http://localhost:8000/task/create', { listId: createlistId })
@@ -49,6 +51,18 @@ const taskMiddleware = (store) => (next) => (action) => {
           store.dispatch(handleUpdatedTaskBoolean());
           store.dispatch(handleTaskModal());
           store.dispatch(clearTaskInput());
+        });
+      break;
+    case SET_CHECK_STATE_TASK:
+      axios.post('http://localhost:8000/task/validate',{ taskId, isChecked: isCheckedTask })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          store.dispatch(handleCheckedCallLoaded());
         });
       break;
     default:

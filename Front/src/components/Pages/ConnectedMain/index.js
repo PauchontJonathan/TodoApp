@@ -19,6 +19,7 @@ const ConnectedMain = ({
   isTaskCreated,
   isDeletedTask,
   isTaskUpdated,
+  isCheckedTaskCallLoaded,
 }) => {
 
   // update the component if the main datas are loaded
@@ -58,6 +59,11 @@ const ConnectedMain = ({
     receiveList();
   }, [isTaskUpdated]);
 
+  // update the component if a task is validate or not
+  useEffect(() => {
+    receiveList();
+  }, [isCheckedTaskCallLoaded]);
+
   const handleCreateList = () => {
     createList();
   };
@@ -96,6 +102,7 @@ ConnectedMain.propTypes = {
   isTaskCreated: PropTypes.bool.isRequired,
   isDeletedTask: PropTypes.bool.isRequired,
   isTaskUpdated: PropTypes.bool.isRequired,
+  isCheckedTaskCallLoaded: PropTypes.bool.isRequired,
 }
 
 ConnectedMain.defaultProps = {

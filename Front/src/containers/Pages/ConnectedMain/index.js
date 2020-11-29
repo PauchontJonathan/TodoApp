@@ -14,6 +14,7 @@ const mapStateToProps = (state) => ({
   isTaskCreated: state.task.isTaskCreated,
   isDeletedTask: state.task.isDeletedTask,
   isTaskUpdated: state.task.isTaskUpdated,
+  isCheckedTaskCallLoaded: state.task.isCheckedTaskCallLoaded,
 });
 
 const mapDispatchToProps = (dispatch) => ({

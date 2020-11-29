@@ -1,4 +1,6 @@
 const initialState = {
+  isCheckedTask: '',
+  isCheckedTaskCallLoaded: false,
   isTaskUpdated: false,
   isDeletedTask: false,
   isTaskCreated: false,
@@ -16,9 +18,12 @@ const HANDLE_TASK_INPUT = 'HANDLE_TASK_INPUT';
 const GET_TASK_ID = 'GET_TASK_ID';
 const IS_DELETED_TASK = 'IS_DELETED_TASK';
 const CLEAR_TASK_UPDATE_INPUT = 'CLEAR_TASK_UPDATE_INPUT';
+const HANDLE_ISCHECKEDTASK = 'HANDLE_ISCHECKEDTASK';
+const HANDLE_CHECKED_TASK_CALL_LOADED_BOOLEAN = 'HANDLE_CHECKED_TASK_CALL_LOADED_BOOLEAN';
 export const CREATE_TASK = 'CREATE_TASK';
 export const DELETE_TASK = 'DELETE_TASK';
 export const UPDATE_TASK = 'UPDATE_TASK';
+export const SET_CHECK_STATE_TASK = 'SET_CHECK_STATE_TASK';
 
 
 const reducer = ( state = initialState, action = {}) => {
@@ -39,6 +44,10 @@ const reducer = ( state = initialState, action = {}) => {
       return { ...state, isTaskUpdated: !state.isTaskUpdated };
     case CLEAR_TASK_UPDATE_INPUT:
       return { ...state, contentTaskInput: '' };
+    case HANDLE_ISCHECKEDTASK:
+      return { ...state, isCheckedTask: action.checkedValue };
+    case HANDLE_CHECKED_TASK_CALL_LOADED_BOOLEAN:
+      return { ...state, isCheckedTaskCallLoaded: !state.isCheckedTaskCallLoaded };
     default:
       return state;
   }
@@ -92,5 +101,17 @@ export const clearTaskInput = () => ({
   type: CLEAR_TASK_UPDATE_INPUT,
 });
 
+export const handleIsCkeckedTask = (checkedValue) => ({
+  type: HANDLE_ISCHECKEDTASK,
+  checkedValue,
+});
+
+export const handleCheckedCallLoaded = () => ({
+  type: HANDLE_CHECKED_TASK_CALL_LOADED_BOOLEAN,
+});
+
+export const setCheckStateTask = () => ({
+  type: SET_CHECK_STATE_TASK,
+});
 
 export default reducer;
