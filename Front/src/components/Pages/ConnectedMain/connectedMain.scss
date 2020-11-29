@@ -164,5 +164,14 @@
       align-self: center;
       width: 20rem;
     }
+    &-lists {
+      &-single {
+        &-task {
+          &-single {
+            width: 13rem;
+          }
+        }
+      }
+    }
   }
 }
