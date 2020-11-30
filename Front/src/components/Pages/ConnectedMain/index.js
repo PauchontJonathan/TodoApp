@@ -103,6 +103,7 @@ const ConnectedMain = ({
           </>
         ) }
       </div>
+      { list.length === 0 && <p className="connectedMain-empty">Vous n'avez aucune liste vous pouvez en créér en cliquant sur "Créer une liste"</p> }
       <ListModal />
       <TaskModal />
     </div>

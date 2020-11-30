@@ -66,7 +66,7 @@ const reducer = ( state = initialState, action = {}) => {
     case RECEIVE_CURRENT_ID:
       return { ...state, userId: action.currentId };
     case HANDLE_RECEIVED_DATAS_BOOL:
-      return { ...state, isDatasReceived: !state.isDatasReceived, }
+      return { ...state, isDatasReceived: true, }
     case DISCONNECT_USER:
       localStorage.clear();
       return { ...state, token: '', logged: false, userNickname: '', id: '', userId: '', isDatasReceived: false };

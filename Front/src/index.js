@@ -17,7 +17,7 @@ import App from 'src/components/App';
 const rootComponent = (
   <Provider store={store}>
     <Router>
-      <App />;
+      <App />
     </Router>
   </Provider>
 )
