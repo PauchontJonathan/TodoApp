@@ -57,12 +57,24 @@
         top: 5px;
         right: 8px;
         cursor: pointer;
+        &:hover {
+          color: #fff;
+        }
+        &:active {
+          color: darken(#fff, 10%);
+        }
       }
       &-modify {
         position: absolute;
         top: 5px;
         right: 35px;
         cursor: pointer;
+        &:hover {
+          color: #fff;
+        }
+        &:active {
+          color: darken(#fff, 10%);
+        }
       }
       &-name {
         width: 100%;
@@ -89,6 +101,12 @@
           font-size: 2rem !important;
           right: 6px;
           cursor: pointer;
+          &:hover {
+            color: #fff;
+          }
+          &:active {
+            color: darken(#fff, 10%);
+          }
         }
       }
       &-task {
@@ -123,11 +141,23 @@
           position: absolute;
           right: 6px;
           cursor: pointer;
+          &:hover {
+            color: #fff;
+          }
+          &:active {
+            color: darken(#fff, 10%);
+          }
         }
         &-modify {
           position: absolute;
           right: 34px;
           cursor: pointer;
+          &:hover {
+            color: #fff;
+          }
+          &:active {
+            color: darken(#fff, 10%);
+          }
         }
       }
     }
